@@ -1,0 +1,45 @@
+button.cc-primary-button,
+a.cc-primary-button {
+  background-color: var(--ccOrange) !important;
+  color: var(--ccWhite);
+  font-size: 1.25rem;
+  min-height: 3.75rem;
+  font-weight: 400;
+  width: 100%;
+}
+
+button.cc-secondary-button,
+a.cc-secondary-button {
+  background-color: var(--ccDarkBlue) !important;
+  color: var(--ccWhite);
+  font-size: 1.25rem;
+  min-height: 3.75rem;
+  font-weight: 400;
+  width: 100%;
+}
+
+button.cc-basic-button,
+a.cc-basic-button {
+  color: var(--ccOrange) !important;
+  font-size: 1rem;
+  min-height: 0.75rem;
+  font-weight: 400;
+  width: 100%;
+}
+
+button.cc-basic-red-button,
+a.cc-basic-red-button {
+  color: var(--ccRed) !important;
+  font-size: 1rem;
+  min-height: 0.75rem;
+  font-weight: 400;
+  width: 100%;
+}
+
+button.cc-secondary-button:disabled,
+button.cc-primary-button:disabled {
+  background-color: var(--ccSilver) !important;
+  color: var(--ccDarkSilver);
+  cursor: not-allowed;
+  opacity: 0.6;
+}

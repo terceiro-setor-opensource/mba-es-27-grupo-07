@@ -1,0 +1,46 @@
+<main class="cc-main-container">
+  <app-header title="meu perfil" [link]="'/home'"></app-header>
+
+  <section class="cc-login-section-input">
+    <form>
+      <mat-form-field appearance="outline" class="custom-input">
+        <mat-label>nome</mat-label>
+        <input matInput type="text" id="nome" required />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="custom-input">
+        <mat-label>e-mail</mat-label>
+        <input matInput type="email" id="email" required />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="custom-input">
+        <mat-label>whatsapp</mat-label>
+        <input matInput type="text" id="whatsapp" required />
+      </mat-form-field>
+
+      <div class="bloco-apartamento">
+        <mat-form-field appearance="outline" class="custom-input">
+          <mat-label>bloco</mat-label>
+          <input matInput type="text" id="bloco" required />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="custom-input">
+          <mat-label>apartamento</mat-label>
+          <input matInput type="text" id="apartamento" required />
+        </mat-form-field>
+      </div>
+
+      <mat-form-field appearance="outline" class="custom-input">
+        <mat-label>senha</mat-label>
+        <input matInput type="password" />
+        <!-- <mat-error>Password is <strong>required</strong></mat-error> -->
+      </mat-form-field>
+    </form>
+  </section>
+
+  <button class="cc-secondary-button editar-perfil-button" mat-flat-button routerLink="/home">
+    salvar perfil
+  </button>
+
+  <app-menu></app-menu>
+</main>

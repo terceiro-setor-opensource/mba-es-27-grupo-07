@@ -1,0 +1,71 @@
+<main class="cc-main-container">
+  <section class="cc-login-section">
+    <img class="cc-login-logo" src="/assets/img/logo.png" alt="Ícone globo" />
+  </section>
+
+  <section class="cc-login-section-input">
+    <form [formGroup]="loginForm">
+      <mat-form-field appearance="outline" class="custom-input">
+        <mat-label>e-mail</mat-label>
+        <input matInput type="text" formControlName="login" />
+        <mat-error *ngIf="loginForm.get('login')?.hasError('required')">
+          *campo obrigatório
+        </mat-error>
+        <mat-error *ngIf="loginForm.get('login')?.hasError('email')">
+          *formato de e-mail inválido
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="custom-input">
+        <mat-label>senha</mat-label>
+        <input
+          matInput
+          [type]="isPasswordVisible ? 'text' : 'password'"
+          formControlName="password"
+        />
+        <span
+          class="material-symbols-outlined password-icon"
+          (click)="togglePasswordVisibility()"
+          style="cursor: pointer"
+        >
+          {{ isPasswordVisible ? "visibility_off" : "visibility" }}
+        </span>
+        <mat-error *ngIf="loginForm.get('password')?.hasError('required')">
+          * campo obrigatório
+        </mat-error>
+        <mat-error
+          *ngIf="loginForm.get('password')?.hasError('invalidCredential')"
+        >
+          * credenciais inválidas. Por favor, verifique seu email e senha.
+        </mat-error>
+      </mat-form-field>
+    </form>
+  </section>
+
+  <section class="cc-login-section-button">
+    <button
+      [disabled]="isLoading"
+      class="cc-secondary-button acessar-button"
+      mat-flat-button
+      (click)="handleLogin()"
+    >
+      acessar
+    </button>
+    <!-- TODO → ajustar link quando criar tela esqueci senha -->
+    <button
+      class="cc-basic-button esqueci-senha-button"
+      mat-button
+      routerLink="/esqueci-senha"
+    >
+      esqueci a senha
+    </button>
+    <hr class="cc-line-divider" />
+    <button
+      class="cc-basic-button nao-tenho-conta"
+      mat-button
+      routerLink="/nova-conta"
+    >
+      não tenho uma conta
+    </button>
+  </section>
+</main>

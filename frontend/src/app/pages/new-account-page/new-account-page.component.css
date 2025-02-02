@@ -1,0 +1,36 @@
+.cc-main-container {
+  margin-bottom: 50px;
+  text-align: center;
+}
+
+.custom-input {
+  margin-bottom: 0.5rem;
+}
+
+.outline mat-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+.bloco-apartamento {
+  display: flex;
+  gap: 10px;
+}
+
+.custom-input {
+  flex: 1;
+}
+
+.acessar-button {
+  margin-top: 30px;
+}
+
+.password-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.5rem;
+  cursor: pointer;
+}

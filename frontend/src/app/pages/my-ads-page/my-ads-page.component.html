@@ -1,0 +1,51 @@
+<main class="meu-anuncio-container">
+  <app-header title="meus anúncios" [link]="'/home'"></app-header>
+  <button
+    class="cc-primary-button btn-novo-anuncio"
+    mat-flat-button
+    routerLink="/meus-anuncios/novo"
+  >
+    novo anúncio
+  </button>
+  <div class="anuncio-card">
+    <img
+      src="assets/img/ps5.png"
+      alt="PlayStation 5"
+      class="anuncio-image"
+      routerLink="/meus-anuncios/{{ '12' }}"
+    />
+    <div class="anuncio-details">
+      <h3 class="anuncio-name">
+        PlayStation 5 mídia física Usado - Console Sony com 825GB SSD
+      </h3>
+      <h4 class="anuncio-price">R$ 2500</h4>
+      <span class="anuncio-status active">ativo</span>
+      <button class="edit-button" routerLink="/meus-anuncios/{{ '12' }}">
+        <span class="material-icons">edit</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="separator"></div>
+
+  <div class="anuncio-card">
+    <img
+      src="assets/img/notebook.png"
+      alt="Notebook"
+      class="anuncio-image"
+      routerLink="/meus-anuncios/{{ '12' }}"
+    />
+    <div class="anuncio-details">
+      <h3 class="anuncio-name">
+        Notebook i5, SSD, 1TB não acompanha carregador, bateria viciada
+      </h3>
+      <h4 class="anuncio-price">R$ 3400</h4>
+      <span class="anuncio-status inactive">inativo</span>
+      <button class="edit-button" routerLink="/meus-anuncios/{{ '12' }}">
+        <span class="material-icons">edit</span>
+      </button>
+    </div>
+  </div>
+  <div class="separator"></div>
+  <app-menu></app-menu>
+</main>

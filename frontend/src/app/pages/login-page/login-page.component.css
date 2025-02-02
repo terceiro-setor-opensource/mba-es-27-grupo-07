@@ -1,0 +1,43 @@
+/* src/app/pages/login-page/login-page.component.css */
+.cc-login-section {
+  margin-bottom: 50px; /* Espaçamento abaixo da seção de logo */
+}
+
+.cc-login-section-input {
+  margin-bottom: 80px;
+}
+
+.cc-login-logo {
+  display: flex;
+  height: 20rem;
+  max-width: 28.75rem;
+  margin: auto;
+}
+
+.acessar-button {
+  margin-bottom: 5px;
+}
+
+.cc-line-divider {
+  border: none;
+  border-top: 1px solid var(--ccOrange);
+  margin-top: 100px;
+  width: 100%;
+}
+
+.custom-input {
+  position: relative; /* Para posicionar o ícone */
+}
+
+.password-icon {
+  position: absolute; /* Posiciona o ícone em relação ao contêiner */
+  right: 10px; /* Ajuste a posição à direita */
+  top: 50%; /* Centraliza verticalmente */
+  transform: translateY(-50%); /* Ajusta para centralizar */
+  font-size: 1.5rem; /* Tamanho do ícone */
+  cursor: pointer;
+}
+
+
+
+

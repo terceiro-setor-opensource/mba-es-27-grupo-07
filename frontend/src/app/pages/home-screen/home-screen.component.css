@@ -1,0 +1,43 @@
+.cc-home-logo {
+  display: flex;
+  height: 15rem;
+  max-width: 23.75rem;
+  margin: auto;
+}
+
+.cc-home-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.875rem;
+  margin-bottom: 1.875rem;
+  margin-top: 10px;
+}
+
+.cc-icon-card {
+  display: flex;
+  align-items: center;
+  gap: 0.4375rem;
+}
+
+.cc-icon-card img {
+  width: 3rem;
+  height: 3rem;
+  object-fit: contain;
+}
+
+.cc-icon-card h3 {
+  font-size: 0.8125rem;
+  line-height: 1.125rem;
+  margin: 0;
+}
+
+.cc-icon-card h3 strong {
+  font-weight: 600;
+}
+
+.cc-home-section-button {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9375rem;
+  margin-top: 100px;
+}

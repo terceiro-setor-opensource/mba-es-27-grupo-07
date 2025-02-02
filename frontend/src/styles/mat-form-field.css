@@ -1,0 +1,8 @@
+mat-form-field {
+  width: 100%;
+  margin-bottom: 0.9375rem;
+}
+
+mat-form-field:last-of-type {
+  margin-bottom: 0;
+}

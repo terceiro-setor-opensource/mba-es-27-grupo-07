@@ -1,0 +1,15 @@
+:root {
+  --ccWhite: #ffffff;
+  --ccBlack: #000000;
+  --ccOrange: #fb8500;
+  --ccYellow: #ffb703;
+  --ccDarkBlue: #023047;
+  --ccOceanBlue: #219ebc;
+  --ccLightBlue: #8ecae6;
+  --ccRed: #ff0000;
+  --ccRedErrorText: #f44336;
+  --ccSilver: #cccccc;
+  --ccSilverTwo: #74777f;
+  --ccDarkSilver: #666666;
+  --opacityOrange: rgba(251, 133, 0, 0.322);
+}

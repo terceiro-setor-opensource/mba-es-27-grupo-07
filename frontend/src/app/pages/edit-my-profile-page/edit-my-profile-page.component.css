@@ -1,0 +1,35 @@
+.cc-main-container {
+    margin-bottom: 50px;
+    text-align: center;
+    padding: 1.25rem;
+    padding-bottom: 60px;
+  }
+
+.custom-input {
+    margin-bottom: 0.5rem;
+}
+
+.outline mat-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+}
+
+.bloco-apartamento {
+    display: flex;
+    gap: 10px;
+}
+
+.custom-input {
+    flex: 1;
+}
+
+.editar-perfil-button {
+    margin-top: 3.0rem;
+
+}
+
+.sair {
+   text-decoration: underline; 
+   margin: 1rem 0 1rem 0;
+}

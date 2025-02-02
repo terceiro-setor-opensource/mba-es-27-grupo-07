@@ -1,0 +1,14 @@
+.snackbarSuccess .mat-mdc-snackbar-surface {
+  background-color: rgb(66, 170, 66) !important;
+  color: #fff !important;
+}
+
+.snackbarError .mat-mdc-snackbar-surface {
+  background-color: rgb(184, 52, 52) !important;
+  color: #fff !important;
+}
+
+.snackbarSuccess .mat-mdc-button,
+.snackbarError .mat-mdc-button {
+  color: #fff !important;
+}

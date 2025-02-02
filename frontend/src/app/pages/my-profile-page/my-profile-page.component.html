@@ -1,0 +1,47 @@
+<main class="cc-main-container">
+  <app-header title="meu perfil" [link]="'/home'"></app-header>
+
+  <section class="cc-login-section-input">
+    <form>
+      <mat-form-field appearance="outline" class="custom-input">
+        <mat-label>nome</mat-label>
+        <input matInput type="text" id="nome" required />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="custom-input">
+        <mat-label>e-mail</mat-label>
+        <input matInput type="email" id="email" required />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="custom-input">
+        <mat-label>whatsapp</mat-label>
+        <input matInput type="text" id="whatsapp" required />
+      </mat-form-field>
+
+      <div class="bloco-apartamento">
+        <mat-form-field appearance="outline" class="custom-input">
+          <mat-label>bloco</mat-label>
+          <input matInput type="text" id="bloco" required />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="custom-input">
+          <mat-label>apartamento</mat-label>
+          <input matInput type="text" id="apartamento" required />
+        </mat-form-field>
+      </div>
+    </form>
+  </section>
+
+  <button
+    class="cc-secondary-button editar-perfil-button"
+    mat-flat-button
+    routerLink="/editar-meu-perfil"
+  >
+    editar perfil
+  </button>
+
+  <button class="cc-basic-button sair" mat-button (click)="handleLogout()">
+    sair
+  </button>
+  <app-menu></app-menu>
+</main>

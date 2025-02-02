@@ -1,0 +1,71 @@
+.meu-anuncio-container {
+  padding-bottom: 90px;
+  padding: 1.25rem;
+}
+
+.anuncio-card {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.anuncio-image {
+  width: 100px;
+  height: auto;
+  border-radius: 6px;
+  object-fit: cover;
+}
+
+.anuncio-details {
+  flex-grow: 1;
+  margin: 20px 0 10px 7px;
+}
+
+.anuncio-name {
+  font-size: 1em;
+  margin: 0;
+  font-weight: bold;
+  line-height: 1.1;
+}
+
+.anuncio-price {
+  font-size: 1em;
+  font-weight: bold;
+  color: var(--ccOrange);
+  margin: 0;
+}
+
+.anuncio-status {
+  display: inline-block;
+  padding: 0px 10px;
+  border-radius: 15px;
+  font-size: 0.7em;
+}
+
+.anuncio-status.active {
+  background-color: #d3ffcf;
+}
+
+.anuncio-status.inactive {
+  background-color: #fbc5c5;
+}
+
+.edit-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2em;
+  float: right;
+}
+
+.separator {
+  width: 100%;
+  margin: 0 auto;
+  border-bottom: 1px solid var(--ccOrange);
+  box-shadow: 0 0 10px var(--ccOrange);
+  margin-top: -10px;
+}
+
+.btn-novo-anuncio {
+  margin-bottom: 0.625rem;
+}

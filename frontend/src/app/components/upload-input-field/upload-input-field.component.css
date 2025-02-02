@@ -1,0 +1,79 @@
+.cc-form-upload-file-field {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  position: relative;
+  border-radius: 5px;
+  border: 0.0625rem solid var(--ccSilverTwo);
+  background-color: var(--ccWhite);
+  transition: all 0.3s;
+  padding: 0.5rem;
+  height: 3.5rem;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+.cc-form-upload-file-field.error {
+  border-color: var(--mat-form-field-error-text-color);
+}
+
+.cc-form-upload-file-field input {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.cc-form-upload-file-field label {
+  color: var(--ccWhite) !important;
+  background: var(--ccOrange) !important;
+  padding: 0.5rem 0.75rem;
+  border-radius: 3.125rem;
+  flex-shrink: 0;
+  margin-right: 0.3125rem;
+}
+
+.cc-file-upload-field-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex-grow: 1;
+  min-width: 0;
+  margin-right: 2.5rem;
+  box-sizing: border-box;
+  text-align: left;
+}
+
+.cc-form-upload-file-icon {
+  position: absolute;
+  right: 0.625rem;
+  top: 0.9375rem;
+  cursor: pointer;
+  color: var(--ccOrange);
+  transform: rotate(137deg);
+}
+
+.cc-form-upload-file-error-text {
+  color: var(--mat-form-field-error-text-color);
+  padding: 0 1rem;
+  font-size: 0.75rem;
+  margin: 0.3125rem 0;
+  text-align: left;
+  opacity: 0;
+}
+
+.cc-form-upload-file-error-text.visible {
+  opacity: 1;
+}
+
+.cc-file-preview-img {
+  width: 80%;
+  height: 15.625rem;
+  object-fit: cover;
+  outline: 0.1875rem solid var(--opacityOrange);
+  border-radius: 13px;
+  margin: 0.625rem auto 0 auto;
+  display: flex;
+  background: var(--ccWhite);
+}

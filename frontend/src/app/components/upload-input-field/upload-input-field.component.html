@@ -1,0 +1,30 @@
+<div class="cc-form-upload-file-field {{ checkInputIsError() ? 'error' : '' }}">
+  <label for="file-upload-field-{{ formControlName }}">{{ label }}</label>
+  <span class="cc-file-upload-field-text">{{ fileName }}</span>
+  <mat-icon class="cc-form-upload-file-icon">attachment</mat-icon>
+  <input
+    id="file-upload-field-{{ formControlName }}"
+    type="file"
+    [accept]="acceptFormats || DEFAULT_FORMATS"
+    (change)="handleChange($event)"
+    required
+  />
+</div>
+<p
+  class="cc-form-upload-file-error-text {{
+    checkInputIsError() ? 'visible' : ''
+  }}"
+>
+  *Campo obrigatório
+</p>
+
+<img
+  *ngIf="isShowPreviewFile"
+  [style.background-color]="previewBackgroundColor"
+  [style.width]="previewWidth"
+  [style.height]="previewHeight"
+  [src]="currentSecurityPreview"
+  id="cc-file-preview-{{ formControlName }}"
+  class="cc-file-preview-img"
+  alt="Preview file"
+/>

@@ -1,0 +1,47 @@
+<main class="cc-main-container">
+  <div class="header">
+    <h1>home</h1>
+    <img src="/assets/img/logo_menor.png" alt="Logo_menor" class="logo">
+  </div>
+
+  <section class="cc-search-input">
+    <form>
+      <mat-form-field appearance="outline" class="custom-input">
+        <mat-label>busque...</mat-label>
+        <input matInput type="text" id="nome" />
+        <span class="material-symbols-outlined search-icon">
+          search
+        </span>
+      </mat-form-field>
+    </form>
+  </section>
+
+  <div class="product">
+    <img src="/assets/img/ps5.png" alt="PlayStation 5" class="product-image" [routerLink]="'/anuncios'">
+    <div class="product-info">
+      <h2 class="preco">R$ 2500 <span class="seller">Alexandre</span></h2>
+      <p>PlayStation 5 mídia física Usado - Console Sony com 825GB SSD 2 controles e 2 jogos</p>
+    </div>
+  </div>
+
+  <div class="separator"></div>
+
+  <div class="product">
+    <img src="/assets/img/notebook.png" alt="Notebook" class="product-image">
+    <div class="product-info">
+      <h2 class="preco">R$ 3400,00 <span class="seller">Romulo</span></h2>
+      <p>Notebook i5, SSD, 1TB não acompanha carregador, bateria viciada</p>
+    </div>
+  </div>
+
+  <div class="separator"></div>
+
+  <div class="product">
+    <img src="/assets/img/carrinho.png" alt="Carrinho de bebê" class="product-image">
+    <div class="product-info">
+      <h2 class="preco">R$ 180.00 <span class="seller">Jilvan Junior</span></h2>
+      <p>Carrinho de bebê usado, pouco tempo de uso (não acompanha o bebê)</p>
+    </div>
+  </div>
+  <app-menu></app-menu>
+</main>

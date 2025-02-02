@@ -1,0 +1,57 @@
+/* css mobile */
+/* .... */
+@import url("./colors.css");
+@import url("./buttons.css");
+@import url("./mat-form-field.css");
+@import url("./snack-bar.css");
+
+html,
+body {
+  height: 100%;
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+body * {
+  box-sizing: border-box;
+}
+
+.cc-main-container {
+  padding: 1.25rem;
+}
+
+app-root {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  min-height: 100vh;
+  max-width: 33.125rem;
+  margin: auto;
+}
+
+mat-spinner {
+  display: flex;
+  margin: auto;
+}
+
+mat-spinner.cc-spinner {
+  margin-top: 0.625rem;
+  margin-bottom: 0.625rem;
+  height: 4.375rem !important;
+  width: 4.375rem !important;
+}
+
+mat-spinner.cc-spinner-small {
+  margin-top: 0.625rem;
+  margin-bottom: 0.625rem;
+  height: 1.875rem !important;
+  width: 1.875rem !important;
+}
+
+@media screen and (min-width: 900px) {
+  /* css desktop */
+  /* .... */
+}
