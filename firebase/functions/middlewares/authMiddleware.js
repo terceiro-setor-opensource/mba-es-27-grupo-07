@@ -2,10 +2,8 @@ const { getAuth } = require("../utils/firebase");
 const logger = require("firebase-functions/logger");
 const auth = getAuth();
 
-const treatUnauthorizedResponse = (res, token) => {
-  return res
-    .status(401)
-    .send({ message: "Usuário não atenticado.", statusCode: "unauthorized", token });
+const treatUnauthorizedResponse = (res) => {
+  return res.status(401).send({ message: "Usuário não atenticado.", statusCode: "unauthorized" });
 };
 
 const authenticateMiddleware = async (req, res, next) => {
@@ -13,7 +11,7 @@ const authenticateMiddleware = async (req, res, next) => {
     const idToken = req.headers.authorization ? req.headers.authorization.split("Bearer ")[1] : "";
 
     if (!idToken) {
-      return treatUnauthorizedResponse(res, idToken);
+      return treatUnauthorizedResponse(res);
     }
 
     try {
@@ -23,7 +21,7 @@ const authenticateMiddleware = async (req, res, next) => {
       next();
     } catch (error) {
       logger.error("Erro ao validar token usuário: ", error);
-      return treatUnauthorizedResponse(res, idToken);
+      return treatUnauthorizedResponse(res);
     }
   } catch (error) {
     return res.status(500).send({ message: "Erro ao autenticar usuário.", statusCode: "error" });
