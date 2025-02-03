@@ -1,4 +1,4 @@
-const { getAuth } = require("../firebase");
+const { getAuth } = require("../utils/firebase");
 const logger = require("firebase-functions/logger");
 const auth = getAuth();
 

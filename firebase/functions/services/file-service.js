@@ -1,4 +1,4 @@
-const { getStorage } = require("../firebase");
+const { getStorage } = require("../utils/firebase");
 const logger = require("firebase-functions/logger");
 
 const getFileSignedUrl = async (filePath) => {

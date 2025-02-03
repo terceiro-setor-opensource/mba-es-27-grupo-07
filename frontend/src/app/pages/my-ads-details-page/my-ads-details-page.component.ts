@@ -7,6 +7,7 @@ import { IAds } from './../../models/ads.model';
 import { AdsService } from 'src/app/services/ads.service';
 import { SnackBarService } from 'src/app/services/snack-bar.service';
 import { validateFormGroup } from 'src/app/utils';
+import { FileAdsService } from 'src/app/services/file-ads.service';
 
 @Component({
   selector: 'app-my-ads-details-page',
@@ -29,6 +30,7 @@ export class MyAdsDetailsPageComponent implements OnInit {
   constructor(
     private snackBarService: SnackBarService,
     private adsService: AdsService,
+    private fileAdsService: FileAdsService,
     private router: ActivatedRoute
   ) {}
 
@@ -42,7 +44,7 @@ export class MyAdsDetailsPageComponent implements OnInit {
     try {
       const file = this.adsForm.get('imageUrl')?.value as File;
 
-      const response = await this.adsService.uploadFile(file);
+      const response = await this.fileAdsService.uploadFile(file);
 
       return response;
     } catch (error) {

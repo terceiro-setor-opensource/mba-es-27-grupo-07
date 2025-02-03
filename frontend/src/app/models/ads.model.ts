@@ -8,6 +8,12 @@ export interface IAds {
   id?: string;
 }
 
+export interface IAdsListResponse {
+  adsList?: IAds[];
+  message: string;
+  statusCode: string;
+}
+
 export interface IAdsResponse {
   ads?: IAds;
   message: string;

@@ -1,4 +1,4 @@
-const { getFirestore } = require("./firebase");
+const { getFirestore, FieldValue } = require("./utils/firebase");
 const logger = require("firebase-functions/logger");
 const { getFileSignedUrl } = require("./services/file-service");
 
@@ -29,6 +29,8 @@ exports.createAds = async (req, res) => {
       status: data.status,
       filePath: data.filePath,
       user_id: db.collection("users").doc(userId),
+      createAt: FieldValue.serverTimestamp(),
+      updateAt: FieldValue.serverTimestamp(),
     });
 
     const adId = adRef.id;

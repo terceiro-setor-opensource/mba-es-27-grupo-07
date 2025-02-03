@@ -1,4 +1,4 @@
-const { getFirestore, getAuth } = require("./firebase");
+const { getFirestore, getAuth } = require("./utils/firebase");
 const functions = require("firebase-functions");
 const logger = require("firebase-functions/logger");
 
