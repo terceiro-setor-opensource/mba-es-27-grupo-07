@@ -49,7 +49,7 @@ export class AdsService {
     const credentials = await this.authService.getCredentials();
 
     const result$ = this.http.get<IAdsResponse>(
-      `${this.functions.getUserAds}?adsId=${adsId}`,
+      `${this.functions.getUserAds}/${adsId}`,
       {
         headers: {
           Authorization: `Bearer ${credentials?.token || ''}`,

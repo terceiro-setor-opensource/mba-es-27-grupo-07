@@ -11,7 +11,7 @@ exports.getUserAds = async (req, res) => {
     }
 
     const userId = req.userId;
-    const adsId = req.query.adsId;
+    const adsId = req.path.split("/").pop();
 
     if (!adsId) {
       return res
