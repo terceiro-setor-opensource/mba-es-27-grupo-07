@@ -39,33 +39,32 @@
           * credenciais inválidas. Por favor, verifique seu email e senha.
         </mat-error>
       </mat-form-field>
+      <section class="cc-login-section-button">
+        <button
+          [disabled]="isLoading"
+          class="cc-secondary-button acessar-button"
+          mat-flat-button
+          (click)="handleLogin()"
+        >
+          acessar
+        </button>
+        <!-- TODO → ajustar link quando criar tela esqueci senha -->
+        <button
+          class="cc-basic-button esqueci-senha-button"
+          mat-button
+          routerLink="/esqueci-senha"
+        >
+          esqueci a senha
+        </button>
+        <hr class="cc-line-divider" />
+        <button
+          class="cc-basic-button nao-tenho-conta"
+          mat-button
+          routerLink="/nova-conta"
+        >
+          não tenho uma conta
+        </button>
+      </section>
     </form>
-  </section>
-
-  <section class="cc-login-section-button">
-    <button
-      [disabled]="isLoading"
-      class="cc-secondary-button acessar-button"
-      mat-flat-button
-      (click)="handleLogin()"
-    >
-      acessar
-    </button>
-    <!-- TODO → ajustar link quando criar tela esqueci senha -->
-    <button
-      class="cc-basic-button esqueci-senha-button"
-      mat-button
-      routerLink="/esqueci-senha"
-    >
-      esqueci a senha
-    </button>
-    <hr class="cc-line-divider" />
-    <button
-      class="cc-basic-button nao-tenho-conta"
-      mat-button
-      routerLink="/nova-conta"
-    >
-      não tenho uma conta
-    </button>
   </section>
 </main>
