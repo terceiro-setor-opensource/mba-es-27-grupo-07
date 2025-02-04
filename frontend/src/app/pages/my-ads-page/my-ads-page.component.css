@@ -4,6 +4,7 @@
 }
 
 .anuncio-card {
+  clear: both;
   display: flex;
   align-items: center;
   margin-bottom: 15px;
@@ -11,14 +12,17 @@
 
 .anuncio-image {
   width: 100px;
-  height: auto;
+  height: 100px;
   border-radius: 6px;
   object-fit: cover;
+  object-position: center;
+  flex-shrink: 0;
 }
 
 .anuncio-details {
   flex-grow: 1;
-  margin: 20px 0 10px 7px;
+  margin-left: 15px;
+  overflow: hidden;
 }
 
 .anuncio-name {
@@ -64,8 +68,35 @@
   border-bottom: 1px solid var(--ccOrange);
   box-shadow: 0 0 10px var(--ccOrange);
   margin-top: -10px;
+  margin-bottom: 4px;
 }
 
 .btn-novo-anuncio {
-  margin-bottom: 0.625rem;
+  margin-bottom: 20px;
+  float: right;
+  padding: 2px;
+  height: 45px;
+  width: 45px;
+  border-radius: 15px;
+  font-size: 0.9em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: unset;
+  min-height: unset;
+}
+
+.btn-novo-anuncio .material-symbols-outlined {
+  font-size: 28px;
+  vertical-align: middle;
+}
+
+.loading, .no-ads {
+  text-align: center;
+  padding: 2rem;
+  color: var(--ccGray);
+}
+
+.no-ads {
+  font-style: italic;
 }

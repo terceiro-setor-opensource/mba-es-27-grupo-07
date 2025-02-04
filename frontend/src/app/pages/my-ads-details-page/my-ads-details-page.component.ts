@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { SafeUrl } from '@angular/platform-browser';
 
@@ -31,7 +31,8 @@ export class MyAdsDetailsPageComponent implements OnInit {
     private snackBarService: SnackBarService,
     private adsService: AdsService,
     private fileAdsService: FileAdsService,
-    private router: ActivatedRoute
+    private router: ActivatedRoute,
+    private routerLink: Router
   ) {}
 
   ngOnInit(): void {
@@ -92,6 +93,11 @@ export class MyAdsDetailsPageComponent implements OnInit {
         'Anúncio salvo com sucesso!',
         'snackbarSuccess'
       );
+
+      setTimeout(() => {
+        this.routerLink.navigate(['/meus-anuncios']);
+      }, 1000);
+
     } catch (error) {
       console.error('Error saving ads: ', error);
 
