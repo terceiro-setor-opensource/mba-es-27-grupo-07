@@ -1,24 +1,18 @@
 <head>
-  <link
-    href="https://fonts.googleapis.com/icon?family=Material+Icons"
-    rel="stylesheet"
-  />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
 </head>
 
 <main class="cc-main-container">
-  <app-header title="editar anúncio" [link]="'/meus-anuncios'"></app-header>
+  <!-- Título dinâmico baseado se é novo anúncio ou edição -->
+  <app-header [title]="isNewAds ? 'criar anúncio' : 'editar anúncio'" [link]="'/meus-anuncios'">
+  </app-header>
 
   <section class="cc-login-section-input">
     <form [formGroup]="adsForm">
+      <!-- Campos do formulário permanecem os mesmos -->
       <mat-form-field appearance="outline" class="custom-input">
         <mat-label>título do anúncio</mat-label>
-        <input
-          matInput
-          type="text"
-          class="titulo-anuncio"
-          formControlName="title"
-          required
-        />
+        <input matInput type="text" class="titulo-anuncio" formControlName="title" required />
         <mat-error *ngIf="adsForm.get('title')?.hasError('required')">
           *campo obrigatório
         </mat-error>
@@ -26,12 +20,7 @@
 
       <mat-form-field appearance="outline" class="custom-input">
         <mat-label>descrição</mat-label>
-        <textarea
-          matInput
-          class="descricao"
-          formControlName="description"
-          required
-        ></textarea>
+        <textarea matInput class="descricao" formControlName="description" required></textarea>
         <mat-error *ngIf="adsForm.get('description')?.hasError('required')">
           *campo obrigatório
         </mat-error>
@@ -39,15 +28,7 @@
 
       <mat-form-field appearance="outline" class="custom-input">
         <mat-label>valor</mat-label>
-        <input
-          matInput
-          type="number"
-          min="0"
-          step="any"
-          class="valor"
-          formControlName="price"
-          required
-        />
+        <input matInput type="number" min="0" step="any" class="valor" formControlName="price" required />
         <span class="cc-mat-icon-cost" matSuffix>R$&nbsp;</span>
         <mat-error *ngIf="adsForm.get('price')?.hasError('required')">
           *campo obrigatório
@@ -64,32 +45,24 @@
           *campo obrigatório
         </mat-error>
       </mat-form-field>
-      <app-upload-input-field
-        label="Imagem do anúncio"
-        formControlName="imageUrl"
-        [currentSecurityPreview]="imageUrl"
-        [fileName]="''"
-        acceptFormats="image/jpeg, image/png"
-      ></app-upload-input-field>
+
+      <!-- Componente de upload com preview da imagem existente -->
+      <app-upload-input-field label="Imagem do anúncio" formControlName="imageUrl" [currentSecurityPreview]="imageUrl"
+        [fileName]="''" acceptFormats="image/jpeg, image/png"></app-upload-input-field>
     </form>
   </section>
 
+  <!-- Spinner de carregamento -->
   <mat-spinner *ngIf="isLoading" class="cc-spinner"></mat-spinner>
-  <button
-    class="cc-primary-button btn-criar-anuncio"
-    mat-flat-button
-    (click)="onSave()"
-    [disabled]="isLoading"
-  >
-    {{ isNewAds ? "criar anúncio" : "editar anúncio" }}
+
+  <!-- Botão de salvar/editar -->
+  <button class="cc-primary-button btn-criar-anuncio" mat-flat-button (click)="onSave()"
+    [disabled]="isLoading || !adsForm.valid">
+    {{ isNewAds ? "criar anúncio" : "salvar alterações" }}
   </button>
 
-  <button
-    *ngIf="!isNewAds"
-    class="cc-basic-red-button excluir-anuncio-button"
-    mat-button
-    routerLink="/meus-anuncios"
-  >
+  <!-- Botão de excluir (apenas na edição) -->
+  <button *ngIf="!isNewAds" class="cc-basic-red-button excluir-anuncio-button" mat-button>
     excluir anúncio<span class="material-symbols-outlined">delete</span>
   </button>
 

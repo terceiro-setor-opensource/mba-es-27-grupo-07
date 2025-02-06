@@ -36,9 +36,41 @@ export class MyAdsDetailsPageComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    let param = parseInt(this.router.snapshot.paramMap.get('param') as string);
+    const adsId = this.router.snapshot.paramMap.get('param');
+    this.isNewAds = !adsId;
 
-    this.isNewAds = isNaN(param);
+    if (!this.isNewAds) {
+      this.loadAdsDetails(adsId as string);
+    }
+  }
+
+  async loadAdsDetails(adsId: string) {
+    try {
+      this.isLoading = true;
+      const response = await this.adsService.getUserAds(adsId);
+
+      if (response?.ads) {
+        this.ads = response.ads;
+        this.imageUrl = response.ads.fileUrl || '';
+
+        // Preenche o formulário com os dados do anúncio
+        this.adsForm.patchValue({
+          title: response.ads.title,
+          description: response.ads.description,
+          price: response.ads.price,
+          status: response.ads.status,
+          imageUrl: null // A imagem atual já está sendo mostrada via imageUrl
+        });
+      }
+    } catch (error) {
+      console.error('Erro ao carregar dados do anúncio:', error);
+      this.snackBarService.showNotificationMassage(
+        'Erro ao carregar dados do anúncio',
+        'snackbarError'
+      );
+    } finally {
+      this.isLoading = false;
+    }
   }
 
   async uploadImage() {
@@ -58,20 +90,21 @@ export class MyAdsDetailsPageComponent implements OnInit {
   async onSave() {
     try {
       const isValidForm = validateFormGroup(this.adsForm);
-
       if (!isValidForm) return;
 
       this.isLoading = true;
 
-      const filePath = await this.uploadImage();
-
-      if (!filePath) {
-        this.snackBarService.showNotificationMassage(
-          'Erro ao fazer upload da imagem. Verifique o arquivo e tente novamente.',
-          'snackbarError'
-        );
-
-        return;
+      // Só faz upload da imagem se uma nova imagem foi selecionada
+      let filePath = this.ads?.filePath || '';
+      if (this.adsForm.get('imageUrl')?.value instanceof File) {
+        filePath = await this.uploadImage() || '';
+        if (!filePath) {
+          this.snackBarService.showNotificationMassage(
+            'Erro ao fazer upload da imagem. Verifique o arquivo e tente novamente.',
+            'snackbarError'
+          );
+          return;
+        }
       }
 
       const ads: IAds = {
@@ -82,7 +115,12 @@ export class MyAdsDetailsPageComponent implements OnInit {
         filePath,
       };
 
-      const response = await this.adsService.create(ads);
+      let response;
+      if (this.isNewAds) {
+        response = await this.adsService.create(ads);
+      } else {
+        response = await this.adsService.updateAds(this.ads?.id as string, ads);
+      }
 
       if (!response?.ads?.id) throw new Error('Error saving ads');
 
@@ -90,7 +128,7 @@ export class MyAdsDetailsPageComponent implements OnInit {
       this.isNewAds = false;
 
       this.snackBarService.showNotificationMassage(
-        'Anúncio salvo com sucesso!',
+        this.isNewAds ? 'Anúncio criado com sucesso!' : 'Anúncio atualizado com sucesso!',
         'snackbarSuccess'
       );
 

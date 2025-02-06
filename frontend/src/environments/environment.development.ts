@@ -16,6 +16,7 @@ export const environment = {
       createUrl: 'https://createads-7wa5cxxgza-uc.a.run.app',
       listUserAds: 'https://listuserads-7wa5cxxgza-uc.a.run.app',
       getUserAds: 'https://getuserads-7wa5cxxgza-uc.a.run.app',
+      updateAds: 'https://updateads-7wa5cxxgza-uc.a.run.app',
       listAllAdsUrl: '',
       getAds: '',
     },
