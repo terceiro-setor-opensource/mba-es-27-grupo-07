@@ -8,6 +8,7 @@ const { createAds } = require("./createAds.js");
 const { updateAds } = require("./updateAds.js");
 const { listUserAds } = require("./listUserAds.js");
 const { getUserAds } = require("./getUserAds.js");
+const { listAds } = require("./listAds.js");
 
 exports.createUserWithDetails = functions.https.onRequest(
   applyMiddlewares([corsMiddleware], createUserWithDetails),
@@ -27,4 +28,8 @@ exports.listUserAds = functions.https.onRequest(
 
 exports.getUserAds = functions.https.onRequest(
   applyMiddlewares([corsMiddleware, authenticateMiddleware], getUserAds),
+);
+
+exports.listAds = functions.https.onRequest(
+  applyMiddlewares([corsMiddleware, authenticateMiddleware], listAds),
 );

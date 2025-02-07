@@ -3,7 +3,7 @@ const logger = require("firebase-functions/logger");
 
 const db = getFirestore();
 
-exports.listUserAds = async (req, res) => {
+exports.listAds = async (req, res) => {
   try {
     if (req.method !== "GET") {
       return res.status(405).send({ message: "Método não permitido", statusCode: "error" });
@@ -19,7 +19,8 @@ exports.listUserAds = async (req, res) => {
 
     const adsSnapshot = await db
       .collection("ads")
-      .where("user_id", "==", db.collection("users").doc(userId))
+      .where("status", "==", "ativo")
+      .orderBy("updateAt", "desc")
       .get();
 
     if (adsSnapshot.empty) {
@@ -32,10 +33,12 @@ exports.listUserAds = async (req, res) => {
 
     adsSnapshot.forEach((doc) => {
       const data = doc.data();
-      delete data.user_id;
-      const createdDate = data.createAt.toDate().toISOString();
-      const updatedDate = data.updateAt.toDate().toISOString();
-      adsList.push({ ...data, id: doc.id, createAt: createdDate, updateAt: updatedDate });
+      if (data.user_id.id !== userId) {
+        delete data.user_id;
+        const createdDate = data.createAt.toDate().toISOString();
+        const updatedDate = data.updateAt.toDate().toISOString();
+        adsList.push({ ...data, id: doc.id, createAt: createdDate, updateAt: updatedDate });
+      }
     });
 
     res

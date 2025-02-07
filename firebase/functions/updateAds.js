@@ -22,6 +22,7 @@ exports.updateAds = async (req, res) => {
     }
 
     const adRef = db.collection("ads").doc(adsId);
+    const url = await getFileSignedUrl(data.filePath);
 
     await adRef.update({
       title: data.title,
@@ -29,10 +30,10 @@ exports.updateAds = async (req, res) => {
       price: data.price,
       status: data.status,
       filePath: data.filePath,
+      fileUrl: url,
       updateAt: FieldValue.serverTimestamp(),
     });
 
-    const url = await getFileSignedUrl(data.filePath);
     const updatedDate = new Date().toISOString();
 
     const ads = { ...data, id: adsId, fileUrl: url, updateAt: updatedDate };
