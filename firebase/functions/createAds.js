@@ -21,6 +21,7 @@ exports.createAds = async (req, res) => {
     }
 
     const userId = req.userId;
+    const url = await getFileSignedUrl(data.filePath);
 
     const adRef = await db.collection("ads").add({
       title: data.title,
@@ -28,13 +29,13 @@ exports.createAds = async (req, res) => {
       price: data.price,
       status: data.status,
       filePath: data.filePath,
+      fileUrl: url,
       user_id: db.collection("users").doc(userId),
       createAt: FieldValue.serverTimestamp(),
       updateAt: FieldValue.serverTimestamp(),
     });
 
     const adId = adRef.id;
-    const url = await getFileSignedUrl(data.filePath);
     const createdDate = new Date().toISOString();
 
     const ads = { ...data, id: adId, fileUrl: url, createAt: createdDate, updateAt: createdDate };
