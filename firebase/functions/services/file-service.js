@@ -6,10 +6,12 @@ const getFileSignedUrl = async (filePath) => {
     const storage = getStorage();
     const file = storage.bucket().file(filePath);
 
-    const oneYearExpirationDate = Date.now() + 365 * 24 * 60 * 60 * 1000;
+    const tenYearsExpirationDate = Date.now() + 10 * 365 * 24 * 60 * 60 * 1000;
+    const tenYearsMaxAge = 315360000;
     const [url] = await file.getSignedUrl({
       action: "read",
-      expires: oneYearExpirationDate,
+      expires: tenYearsExpirationDate,
+      responseCacheControl: `public, max-age=${tenYearsMaxAge}`,
     });
 
     return url;

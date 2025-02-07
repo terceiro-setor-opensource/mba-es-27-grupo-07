@@ -1,6 +1,5 @@
 const { getFirestore } = require("./utils/firebase");
 const logger = require("firebase-functions/logger");
-const { getFileSignedUrl } = require("./services/file-service");
 
 const db = getFirestore();
 
@@ -32,11 +31,10 @@ exports.getUserAds = async (req, res) => {
     }
 
     delete adData.user_id;
-    const fileUrl = await getFileSignedUrl(adData.filePath);
 
     const createdDate = adData.createAt.toDate().toISOString();
     const updatedDate = adData.updateAt.toDate().toISOString();
-    const ads = { ...adData, id: adDoc.id, fileUrl, createAt: createdDate, updateAt: updatedDate };
+    const ads = { ...adData, id: adDoc.id, createAt: createdDate, updateAt: updatedDate };
 
     res.status(200).json({ ads, message: "Anúncio recuperado com sucesso", statusCode: "success" });
   } catch (error) {

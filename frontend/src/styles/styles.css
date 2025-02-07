@@ -37,6 +37,10 @@ mat-spinner {
   margin: auto;
 }
 
+mat-spinner circle {
+  stroke: var(--ccOrange) !important;
+}
+
 mat-spinner.cc-spinner {
   margin-top: 0.625rem;
   margin-bottom: 0.625rem;
