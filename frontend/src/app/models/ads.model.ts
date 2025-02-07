@@ -6,6 +6,8 @@ export interface IAds {
   filePath: string;
   fileUrl?: string;
   id?: string;
+  createAt?: Date;
+  updateAt?: Date;
 }
 
 export interface IAdsListResponse {

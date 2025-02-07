@@ -45,7 +45,7 @@ const routes: Routes = [
     canActivate: [AuthGuardService],
   },
   {
-    path: 'anuncios',
+    path: 'anuncios/:param',
     component: AdsPageComponent,
     canActivate: [AuthGuardService],
   },
