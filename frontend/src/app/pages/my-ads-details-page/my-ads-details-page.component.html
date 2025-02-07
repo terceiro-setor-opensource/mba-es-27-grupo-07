@@ -3,13 +3,11 @@
 </head>
 
 <main class="cc-main-container">
-  <!-- Título dinâmico baseado se é novo anúncio ou edição -->
   <app-header [title]="isNewAds ? 'criar anúncio' : 'editar anúncio'" [link]="'/meus-anuncios'">
   </app-header>
 
   <section class="cc-login-section-input">
     <form [formGroup]="adsForm">
-      <!-- Campos do formulário permanecem os mesmos -->
       <mat-form-field appearance="outline" class="custom-input">
         <mat-label>título do anúncio</mat-label>
         <input matInput type="text" class="titulo-anuncio" formControlName="title" required />
@@ -46,22 +44,18 @@
         </mat-error>
       </mat-form-field>
 
-      <!-- Componente de upload com preview da imagem existente -->
       <app-upload-input-field label="Imagem do anúncio" formControlName="imageUrl" [currentSecurityPreview]="imageUrl"
         [fileName]="''" acceptFormats="image/jpeg, image/png"></app-upload-input-field>
     </form>
   </section>
 
-  <!-- Spinner de carregamento -->
   <mat-spinner *ngIf="isLoading" class="cc-spinner"></mat-spinner>
 
-  <!-- Botão de salvar/editar -->
   <button class="cc-primary-button btn-criar-anuncio" mat-flat-button (click)="onSave()"
     [disabled]="isLoading || !adsForm.valid">
     {{ isNewAds ? "criar anúncio" : "salvar alterações" }}
   </button>
 
-  <!-- Botão de excluir (apenas na edição) -->
   <button *ngIf="!isNewAds" class="cc-basic-red-button excluir-anuncio-button" mat-button>
     excluir anúncio<span class="material-symbols-outlined">delete</span>
   </button>

@@ -20,7 +20,7 @@ export class MyAdsDetailsPageComponent implements OnInit {
     description: new FormControl(null, [Validators.required]),
     price: new FormControl(null, [Validators.required]),
     status: new FormControl(null, [Validators.required]),
-    imageUrl: new FormControl(null, [Validators.required]),
+    imageUrl: new FormControl(null),
   });
   imageUrl: SafeUrl = '';
   isNewAds: boolean = true;
@@ -37,11 +37,20 @@ export class MyAdsDetailsPageComponent implements OnInit {
 
   ngOnInit(): void {
     const adsId = this.router.snapshot.paramMap.get('param');
-    this.isNewAds = !adsId;
+    console.log('adsId:', adsId);
+    this.isNewAds = adsId === 'novo';
 
     if (!this.isNewAds) {
       this.loadAdsDetails(adsId as string);
     }
+
+    const imageUrlControl = this.adsForm.get('imageUrl');
+    if (this.isNewAds) {
+      imageUrlControl?.setValidators([Validators.required]);
+    } else {
+      imageUrlControl?.clearValidators();
+    }
+    imageUrlControl?.updateValueAndValidity();
   }
 
   async loadAdsDetails(adsId: string) {
@@ -53,13 +62,12 @@ export class MyAdsDetailsPageComponent implements OnInit {
         this.ads = response.ads;
         this.imageUrl = response.ads.fileUrl || '';
 
-        // Preenche o formulário com os dados do anúncio
         this.adsForm.patchValue({
           title: response.ads.title,
           description: response.ads.description,
           price: response.ads.price,
           status: response.ads.status,
-          imageUrl: null // A imagem atual já está sendo mostrada via imageUrl
+          imageUrl: null
         });
       }
     } catch (error) {
@@ -94,7 +102,6 @@ export class MyAdsDetailsPageComponent implements OnInit {
 
       this.isLoading = true;
 
-      // Só faz upload da imagem se uma nova imagem foi selecionada
       let filePath = this.ads?.filePath || '';
       if (this.adsForm.get('imageUrl')?.value instanceof File) {
         filePath = await this.uploadImage() || '';
@@ -123,9 +130,6 @@ export class MyAdsDetailsPageComponent implements OnInit {
       }
 
       if (!response?.ads?.id) throw new Error('Error saving ads');
-
-      this.ads = response?.ads;
-      this.isNewAds = false;
 
       this.snackBarService.showNotificationMassage(
         this.isNewAds ? 'Anúncio criado com sucesso!' : 'Anúncio atualizado com sucesso!',
