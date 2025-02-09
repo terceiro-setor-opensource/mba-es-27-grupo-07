@@ -59,6 +59,7 @@ export class LoginPageComponent implements OnInit {
       this.router.navigate(['/home']);
     } catch (error: any) {
       if (error.code === 'auth/invalid-credential') {
+        this.loginForm.get('login')?.setErrors({ invalidCredential: true });
         this.loginForm.get('password')?.setErrors({ invalidCredential: true });
       } else {
         this.snackBarService.showNotificationMassage(

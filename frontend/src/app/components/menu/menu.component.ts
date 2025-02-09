@@ -28,13 +28,14 @@ export class MenuComponent {
     // Atualiza o menu ativo com base na rota atual
     const currentUrl = this.router.url;
 
-
-    if (currentUrl === '/home' || currentUrl === '/anuncios') {
+    if (currentUrl === '/home') {
       this.activeMenu = 'home';
-    } else if (currentUrl === '/meus-anuncios' || currentUrl === '/criar-novo-anuncio' || currentUrl === '/editar-anuncio') {
+    } else if (currentUrl.startsWith('/anuncios') || currentUrl.startsWith('/meus-anuncios')) {
       this.activeMenu = 'anuncios';
-    } else {
+    } else if (currentUrl === '/meu-perfil' || currentUrl === '/editar-meu-perfil') {
       this.activeMenu = 'perfil';
+    } else {
+      this.activeMenu = 'home'; // Valor padrão, caso nenhuma rota corresponda
     }
   }
 }

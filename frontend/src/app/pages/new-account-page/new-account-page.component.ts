@@ -75,10 +75,17 @@ export class NewAccountPageComponent {
 
       this.router.navigate(['/login']);
     } catch (error: any) {
-      this.snackBarService.showNotificationMassage(
-        'Erro ao criar usuário. Tentar novamente.',
-        'snackbarError'
-      );
+      if (error.status === 500) {
+          this.snackBarService.showNotificationMassage(
+              'Email já cadastrado. Tente outro.',
+              'snackbarError'
+          );
+      } else {
+          this.snackBarService.showNotificationMassage(
+              'Erro ao criar usuário. Tentar novamente.',
+              'snackbarError'
+          );
+      }
     } finally {
       this.isLoading = false;
     }
