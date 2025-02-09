@@ -4,7 +4,12 @@ import { lastValueFrom } from 'rxjs';
 
 import { environment } from 'src/environments/environment';
 import { AuthService } from './auth.service';
-import { IAds, IAdsListResponse, IAdsResponse } from '../models/ads.model';
+import {
+  IAds,
+  IAdsDetailsResponse,
+  IAdsListResponse,
+  IAdsResponse,
+} from '../models/ads.model';
 
 @Injectable({
   providedIn: 'root',
@@ -65,6 +70,21 @@ export class AdsService {
 
     const result$ = this.http.get<IAdsListResponse>(
       `${this.functions.listAllAds}`,
+      {
+        headers: {
+          Authorization: `Bearer ${credentials?.token || ''}`,
+        },
+      }
+    );
+
+    return lastValueFrom(result$);
+  }
+
+  async getAds(adsId: string) {
+    const credentials = await this.authService.getCredentials();
+
+    const result$ = this.http.get<IAdsDetailsResponse>(
+      `${this.functions.getAds}/${adsId}`,
       {
         headers: {
           Authorization: `Bearer ${credentials?.token || ''}`,

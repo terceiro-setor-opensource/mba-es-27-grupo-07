@@ -1,27 +1,55 @@
 <main class="anuncio-container">
-
-  <div class="header" style="position: relative;">
+  <div class="header" style="position: relative">
     <button class="back-button" aria-label="Voltar" [routerLink]="'/home'">
       <mat-icon>arrow_back</mat-icon>
       <div class="spacer"></div>
       <div class="spacer"></div>
     </button>
-    <img src="assets/img/ps5.png" alt="PlayStation 5" class="anuncio-image" />
+    <div class="cc-anuncio-image-container">
+      <div class="anuncio-image-skeleton"></div>
+      <img
+        src="{{ ads?.fileUrl }}"
+        alt="{{ ads?.title }}"
+        class="anuncio-image"
+        (load)="onImageLoad($event)"
+      />
+    </div>
   </div>
 
-  <div class="anuncio-card">
-    <h2 class="anuncio-title">PlayStation 5 mídia física Usado - Console Sony com 825GB SSD 2 controles e 2 jogos</h2>
-    <h2 class="anuncio-price">R$ 2500 <span class="anuncio-seller">Alexandre</span></h2>
-    <h3 class="anuncio-title-description">Descrição</h3>
+  <div *ngIf="isLoading" class="cc-ads-loader">
+    <p>carregando detalhes do anúncio...</p>
+    <mat-spinner class="cc-spinner"></mat-spinner>
+  </div>
+
+  <div *ngIf="!isLoading" class="anuncio-card">
+    <h2 class="anuncio-title">
+      {{ ads?.title }}
+    </h2>
+    <h2 class="anuncio-price">
+      {{ formatPrice(ads?.price || 0) }}
+      <span class="anuncio-seller"
+        >atualizado {{ ads?.updateAt | date : "dd/MM/yyyy" }}</span
+      >
+    </h2>
+    <h3 class="anuncio-title-description">
+      vendedor: <span>{{ user?.name }}</span>
+    </h3>
+    <h3 class="anuncio-title-description">descrição</h3>
     <p class="anuncio-description">
-      Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-      industry's standard dummy text ver since the 1500s, when an unknown printer took a galley of type and
-      scrambled it to make a type specimen book.
+      {{ ads?.description }}
     </p>
 
-    <button class="cc-secondary-button acessar-button" mat-flat-button (click)="openWhatsApp()">
+    <button
+      class="cc-secondary-button acessar-button"
+      mat-flat-button
+      (click)="openWhatsApp()"
+    >
       falar com vendedor
-      <img src="assets/icons/whatsapp.png" alt="WhatsApp" class="whatsapp-icon" />
+      <img
+        src="assets/icons/whatsapp.png"
+        alt="WhatsApp"
+        class="whatsapp-icon"
+      />
     </button>
   </div>
 
