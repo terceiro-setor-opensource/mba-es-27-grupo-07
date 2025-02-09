@@ -6,20 +6,51 @@
       <div class="spacer"></div>
       <div class="spacer"></div>
     </button>
-    <img src="assets/img/ps5.png" alt="PlayStation 5" class="anuncio-image" />
+    <div class="cc-anuncio-image-container">
+      <div class="anuncio-image-skeleton"></div>
+      <img
+        src="{{ ads?.fileUrl }}"
+        alt="{{ ads?.title }}"
+        class="anuncio-image"
+        (load)="onImageLoad($event)"
+      />
+    </div>
   </div>
 
-  <div class="anuncio-card">
-    <h2 class="anuncio-title">PlayStation 5 mídia física Usado - Console Sony com 825GB SSD 2 controles e 2 jogos</h2>
-    <h2 class="anuncio-price">R$ 2500 <span class="anuncio-seller">Alexandre</span></h2>
-    <h3 class="anuncio-title-description">Descrição</h3>
+  <div *ngIf="isLoading" class="cc-ads-loader">
+    <p>carregando detalhes do anúncio...</p>
+    <mat-spinner class="cc-spinner"></mat-spinner>
+  </div>
+
+  <div *ngIf="!isLoading" class="anuncio-card">
+    <h2 class="anuncio-title">
+      {{ ads?.title }}
+    </h2>
+    <h2 class="anuncio-price">
+      {{ formatPrice(ads?.price || 0) }}
+      <span class="anuncio-seller"
+        >atualizado {{ ads?.updateAt | date : "dd/MM/yyyy" }}</span
+      >
+    </h2>
+    <h3 class="anuncio-title-description">
+      vendedor: <span>{{ user?.name }}</span>
+    </h3>
+    <h3 class="anuncio-title-description">descrição</h3>
     <p class="anuncio-description">
-      O iPhone 14 Pro Max 256GB combina desempenho excepcional com um design sofisticado. Equipado com o poderoso chip A16 Bionic, tela Super Retina XDR de 6,7” com tecnologia ProMotion e Dynamic Island, oferece uma experiência fluida e imersiva. Sua câmera tripla de 48MP captura fotos e vídeos incríveis, mesmo em baixa luz, enquanto a bateria de longa duração garante mais tempo de uso. Com acabamento premium e resistência à água e poeira, é a escolha perfeita para quem busca inovação, velocidade e qualidade incomparável. 
+      {{ ads?.description }}
     </p>
 
-    <button class="cc-secondary-button acessar-button" mat-flat-button (click)="openWhatsApp()">
+    <button
+      class="cc-secondary-button acessar-button"
+      mat-flat-button
+      (click)="openWhatsApp()"
+    >
       falar com vendedor
-      <img src="assets/icons/whatsapp.png" alt="WhatsApp" class="whatsapp-icon" />
+      <img
+        src="assets/icons/whatsapp.png"
+        alt="WhatsApp"
+        class="whatsapp-icon"
+      />
     </button>
   </div>
 

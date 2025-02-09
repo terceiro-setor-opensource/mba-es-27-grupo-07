@@ -1,3 +1,5 @@
+import { IUser } from './user.model';
+
 export interface IAds {
   title: string;
   description: string;
@@ -18,6 +20,15 @@ export interface IAdsListResponse {
 
 export interface IAdsResponse {
   ads?: IAds;
+  message: string;
+  statusCode: string;
+}
+
+export interface IAdsDetailsResponse {
+  data?: {
+    ads: IAds;
+    user: IUser;
+  };
   message: string;
   statusCode: string;
 }
