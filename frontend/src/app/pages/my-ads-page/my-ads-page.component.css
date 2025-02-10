@@ -17,6 +17,7 @@
   object-fit: cover;
   object-position: center;
   flex-shrink: 0;
+  cursor: pointer;
 }
 
 .anuncio-details {
@@ -99,4 +100,11 @@
 
 .no-ads {
   font-style: italic;
+}
+
+.cc-ads-loader {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }

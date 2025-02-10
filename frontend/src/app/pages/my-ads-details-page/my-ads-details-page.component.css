@@ -27,6 +27,13 @@ mat-spinner.cc-spinner {
   margin-top: 1.25rem;
 }
 
+.cc-my-ads-loader {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .product-image {
   width: 100%;
   height: 190px;
