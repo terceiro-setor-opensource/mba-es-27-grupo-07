@@ -4,7 +4,12 @@ import { lastValueFrom } from 'rxjs';
 
 import { environment } from 'src/environments/environment';
 import { AuthService } from './auth.service';
-import { IAds, IAdsListResponse, IAdsResponse } from '../models/ads.model';
+import {
+  IAds,
+  IAdsDetailsResponse,
+  IAdsListResponse,
+  IAdsResponse,
+} from '../models/ads.model';
 
 @Injectable({
   providedIn: 'root',
@@ -19,6 +24,22 @@ export class AdsService {
 
     const result$ = this.http.post<IAdsResponse>(
       `${this.functions.createUrl}`,
+      ads,
+      {
+        headers: {
+          Authorization: `Bearer ${credentials?.token || ''}`,
+        },
+      }
+    );
+
+    return lastValueFrom(result$);
+  }
+
+  async updateAds(adsId: string, ads: IAds) {
+    const credentials = await this.authService.getCredentials();
+
+    const result$ = this.http.put<IAdsResponse>(
+      `${this.functions.updateAds}/${adsId}`,
       ads,
       {
         headers: {
@@ -75,12 +96,11 @@ export class AdsService {
     return lastValueFrom(result$);
   }
 
-  async updateAds(adsId: string, ads: IAds) {
+  async getAds(adsId: string) {
     const credentials = await this.authService.getCredentials();
 
-    const result$ = this.http.put<IAdsResponse>(
-      `${this.functions.updateAds}/${adsId}`,
-      ads,
+    const result$ = this.http.get<IAdsDetailsResponse>(
+      `${this.functions.getAds}/${adsId}`,
       {
         headers: {
           Authorization: `Bearer ${credentials?.token || ''}`,
