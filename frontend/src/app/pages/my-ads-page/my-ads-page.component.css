@@ -101,3 +101,10 @@
 .no-ads {
   font-style: italic;
 }
+
+.cc-ads-loader {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

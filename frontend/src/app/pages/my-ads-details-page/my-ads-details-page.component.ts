@@ -23,9 +23,11 @@ export class MyAdsDetailsPageComponent implements OnInit {
     imageUrl: new FormControl(null),
   });
   imageUrl: SafeUrl = '';
+  fileName: string = '';
   isNewAds: boolean = true;
   ads: IAds | null = null;
   isLoading: boolean = false;
+  initialLoader: boolean = true;
 
   constructor(
     private snackBarService: SnackBarService,
@@ -35,22 +37,29 @@ export class MyAdsDetailsPageComponent implements OnInit {
     private routerLink: Router
   ) {}
 
-  ngOnInit(): void {
-    const adsId = this.router.snapshot.paramMap.get('param');
-    console.log('adsId:', adsId);
-    this.isNewAds = adsId === 'novo';
+  async ngOnInit(): Promise<void> {
+    this.initialLoader = true;
 
-    if (!this.isNewAds) {
-      this.loadAdsDetails(adsId as string);
-    }
+    try {
+      const adsId = this.router.snapshot.paramMap.get('param');
+      this.isNewAds = adsId === 'novo';
 
-    const imageUrlControl = this.adsForm.get('imageUrl');
-    if (this.isNewAds) {
-      imageUrlControl?.setValidators([Validators.required]);
-    } else {
-      imageUrlControl?.clearValidators();
+      // Configura validação da imagem
+      const imageUrlControl = this.adsForm.get('imageUrl');
+      if (this.isNewAds) {
+        imageUrlControl?.setValidators([Validators.required]);
+      } else {
+        imageUrlControl?.clearValidators();
+        // Carrega detalhes do anúncio apenas se não for novo
+        await this.loadAdsDetails(adsId as string);
+      }
+      imageUrlControl?.updateValueAndValidity();
+
+    } catch (error) {
+      console.error('Erro ao carregar dados do anúncio:', error);
+    } finally {
+      this.initialLoader = false;
     }
-    imageUrlControl?.updateValueAndValidity();
   }
 
   async loadAdsDetails(adsId: string) {
@@ -61,6 +70,7 @@ export class MyAdsDetailsPageComponent implements OnInit {
       if (response?.ads) {
         this.ads = response.ads;
         this.imageUrl = response.ads.fileUrl || '';
+        this.fileName = this.getFileName(this.ads.filePath);
 
         this.adsForm.patchValue({
           title: response.ads.title,
@@ -93,6 +103,14 @@ export class MyAdsDetailsPageComponent implements OnInit {
 
       return '';
     }
+  }
+
+  getFileName(filePath: string) {
+    const parts = filePath?.split('_');
+    parts.shift();
+    const fileName = parts.join('_');
+
+    return fileName;
   }
 
   async onSave() {
