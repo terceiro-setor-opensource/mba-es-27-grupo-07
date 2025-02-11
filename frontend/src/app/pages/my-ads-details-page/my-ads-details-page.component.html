@@ -3,12 +3,8 @@
 </head>
 
 <main class="cc-main-container">
-<<<<<<< HEAD
-  <app-header title="meus anúncios" [link]="'/meus-anuncios'"></app-header>
-=======
   <app-header [title]="isNewAds ? 'criar anúncio' : 'editar anúncio'" [link]="'/meus-anuncios'">
   </app-header>
->>>>>>> acfa2e8c4b15bd176ce2fcdbae39888f6770b2e4
 
   <div *ngIf="initialLoader" class="cc-my-ads-loader">
     <p>carregando anúncios...</p>
