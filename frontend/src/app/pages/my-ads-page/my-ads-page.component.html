@@ -4,8 +4,9 @@
     <span class="material-symbols-outlined">add_circle</span>
   </button>
 
-  <div *ngIf="isLoading" class="loading">
-    Carregando anúncios...
+  <div *ngIf="isLoading" class="cc-ads-loader">
+    carregando anúncios...
+    <mat-spinner class="cc-spinner"></mat-spinner>
   </div>
 
   <div *ngIf="!isLoading && userAds.length === 0" class="no-ads">
@@ -16,7 +17,7 @@
     <ng-container *ngFor="let ad of userAds">
       <div class="anuncio-card">
         <img [src]="ad.fileUrl || 'assets/img/placeholder.png'" [alt]="ad.title" class="anuncio-image"
-          [routerLink]="['/meus-anuncios', ad.id]" />
+          [routerLink]="['/anuncios', ad.id]" />
         <div class="anuncio-details">
           <h3 class="anuncio-name">
             {{ ad.title }}

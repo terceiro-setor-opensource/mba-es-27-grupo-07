@@ -35,6 +35,22 @@ export class AdsService {
     return lastValueFrom(result$);
   }
 
+  async updateAds(adsId: string, ads: IAds) {
+    const credentials = await this.authService.getCredentials();
+
+    const result$ = this.http.put<IAdsResponse>(
+      `${this.functions.updateAds}/${adsId}`,
+      ads,
+      {
+        headers: {
+          Authorization: `Bearer ${credentials?.token || ''}`,
+        },
+      }
+    );
+
+    return lastValueFrom(result$);
+  }
+
   async listUserAds() {
     const credentials = await this.authService.getCredentials();
 
