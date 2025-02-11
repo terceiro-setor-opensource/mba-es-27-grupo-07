@@ -20,12 +20,14 @@ export class MyAdsDetailsPageComponent implements OnInit {
     description: new FormControl(null, [Validators.required]),
     price: new FormControl(null, [Validators.required]),
     status: new FormControl(null, [Validators.required]),
-    imageUrl: new FormControl(null, [Validators.required]),
+    imageUrl: new FormControl(null),
   });
   imageUrl: SafeUrl = '';
+  fileName: string = '';
   isNewAds: boolean = true;
   ads: IAds | null = null;
   isLoading: boolean = false;
+  initialLoader: boolean = true;
 
   constructor(
     private snackBarService: SnackBarService,
@@ -35,10 +37,58 @@ export class MyAdsDetailsPageComponent implements OnInit {
     private routerLink: Router
   ) {}
 
-  ngOnInit(): void {
-    let param = parseInt(this.router.snapshot.paramMap.get('param') as string);
+  async ngOnInit(): Promise<void> {
+    this.initialLoader = true;
 
-    this.isNewAds = isNaN(param);
+    try {
+      const adsId = this.router.snapshot.paramMap.get('param');
+      this.isNewAds = adsId === 'novo';
+
+      // Configura validação da imagem
+      const imageUrlControl = this.adsForm.get('imageUrl');
+      if (this.isNewAds) {
+        imageUrlControl?.setValidators([Validators.required]);
+      } else {
+        imageUrlControl?.clearValidators();
+        // Carrega detalhes do anúncio apenas se não for novo
+        await this.loadAdsDetails(adsId as string);
+      }
+      imageUrlControl?.updateValueAndValidity();
+
+    } catch (error) {
+      console.error('Erro ao carregar dados do anúncio:', error);
+    } finally {
+      this.initialLoader = false;
+    }
+  }
+
+  async loadAdsDetails(adsId: string) {
+    try {
+      this.isLoading = true;
+      const response = await this.adsService.getUserAds(adsId);
+
+      if (response?.ads) {
+        this.ads = response.ads;
+        this.imageUrl = response.ads.fileUrl || '';
+        this.fileName = this.getFileName(this.ads.filePath);
+
+        this.adsForm.patchValue({
+          title: response.ads.title,
+          description: response.ads.description,
+          price: response.ads.price,
+          status: response.ads.status,
+          imageUrl: null
+        });
+      }
+    } catch (error) {
+      console.error('Erro ao carregar dados do anúncio:', error);
+      this.snackBarService.showNotificationMassage(
+        'Erro ao carregar dados do anúncio',
+        'snackbarError'
+      );
+    } finally {
+      this.isLoading = false;
+    }
   }
 
   async uploadImage() {
@@ -55,23 +105,31 @@ export class MyAdsDetailsPageComponent implements OnInit {
     }
   }
 
+  getFileName(filePath: string) {
+    const parts = filePath?.split('_');
+    parts.shift();
+    const fileName = parts.join('_');
+
+    return fileName;
+  }
+
   async onSave() {
     try {
       const isValidForm = validateFormGroup(this.adsForm);
-
       if (!isValidForm) return;
 
       this.isLoading = true;
 
-      const filePath = await this.uploadImage();
-
-      if (!filePath) {
-        this.snackBarService.showNotificationMassage(
-          'Erro ao fazer upload da imagem. Verifique o arquivo e tente novamente.',
-          'snackbarError'
-        );
-
-        return;
+      let filePath = this.ads?.filePath || '';
+      if (this.adsForm.get('imageUrl')?.value instanceof File) {
+        filePath = await this.uploadImage() || '';
+        if (!filePath) {
+          this.snackBarService.showNotificationMassage(
+            'Erro ao fazer upload da imagem. Verifique o arquivo e tente novamente.',
+            'snackbarError'
+          );
+          return;
+        }
       }
 
       const ads: IAds = {
@@ -82,15 +140,17 @@ export class MyAdsDetailsPageComponent implements OnInit {
         filePath,
       };
 
-      const response = await this.adsService.create(ads);
+      let response;
+      if (this.isNewAds) {
+        response = await this.adsService.create(ads);
+      } else {
+        response = await this.adsService.updateAds(this.ads?.id as string, ads);
+      }
 
       if (!response?.ads?.id) throw new Error('Error saving ads');
 
-      this.ads = response?.ads;
-      this.isNewAds = false;
-
       this.snackBarService.showNotificationMassage(
-        'Anúncio salvo com sucesso!',
+        this.isNewAds ? 'Anúncio criado com sucesso!' : 'Anúncio atualizado com sucesso!',
         'snackbarSuccess'
       );
 
