@@ -1,6 +1,7 @@
 const { getFirestore, FieldValue } = require("./utils/firebase");
 const logger = require("firebase-functions/logger");
 const { getFileSignedUrl } = require("./services/file-service");
+const irrelevantWords = require("./constants/irrelevant-words");
 
 const db = getFirestore();
 
@@ -24,7 +25,9 @@ exports.createAds = async (req, res) => {
     const url = await getFileSignedUrl(data.filePath);
 
     const searchTitleIndex = [];
-    const splitTitle = data.title.split(" ");
+    const splitTitle = data.title
+      .split(" ")
+      .filter((word) => !irrelevantWords.includes(word.toLowerCase()));
 
     for (let i = 0; i < splitTitle.length; i++) {
       for (let y = 1; y < splitTitle[i].length + 1; y++) {

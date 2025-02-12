@@ -1,5 +1,6 @@
 const { getFirestore } = require("./utils/firebase");
 const logger = require("firebase-functions/logger");
+const irrelevantWords = require("./constants/irrelevant-words");
 
 const db = getFirestore();
 
@@ -18,7 +19,9 @@ exports.listAdsByTitle = async (req, res) => {
         .send({ message: "Título não fornecido", statusCode: "invalid-argument" });
     }
 
-    const splitTitleList = title.split(" ");
+    const splitTitleList = title
+      .split(" ")
+      .filter((word) => !irrelevantWords.includes(word.toLowerCase()));
 
     const adsSnapshotList = [];
     for (let i = 0; i < splitTitleList.length; i++) {
@@ -54,7 +57,12 @@ exports.listAdsByTitle = async (req, res) => {
           delete data.user_id;
           const createdDate = data.createAt.toDate().toISOString();
           const updatedDate = data.updateAt.toDate().toISOString();
-          adsList.push({ ...data, id: doc.id, createAt: createdDate, updateAt: updatedDate });
+          const ad = { ...data, id: doc.id, createAt: createdDate, updateAt: updatedDate };
+          const existingAd = adsList.find((existingAd) => existingAd.id === ad.id);
+
+          if (!existingAd) {
+            adsList.push(ad);
+          }
         }
       });
     }
