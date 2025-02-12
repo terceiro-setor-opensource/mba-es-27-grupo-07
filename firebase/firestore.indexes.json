@@ -23,13 +23,8 @@
       "queryScope": "COLLECTION",
       "fields": [
         {
-          "fieldPath": "status",
-          "order": "ASCENDING"
-        },
-        {
-          "fieldPath": "title",
-          "mode": "TEXT",
-          "order": "ASCENDING"
+          "fieldPath": "searchTitleIndex",
+          "arrayConfig": "CONTAINS"
         },
         {
           "fieldPath": "updateAt",

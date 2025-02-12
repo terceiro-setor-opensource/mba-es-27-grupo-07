@@ -18,15 +18,26 @@ exports.listAdsByTitle = async (req, res) => {
         .send({ message: "Título não fornecido", statusCode: "invalid-argument" });
     }
 
-    const adsSnapshot = await db
-      .collection("ads")
-      .where("status", "==", "ativo")
-      .where("title", "array-contains", title)
-      .orderBy("title")
-      .orderBy("updateAt", "desc")
-      .get();
+    const splitTitleList = title.split(" ");
 
-    if (adsSnapshot.empty) {
+    const adsSnapshotList = [];
+    for (let i = 0; i < splitTitleList.length; i++) {
+      const splitTitle = splitTitleList[i];
+
+      const adsSnapshot = await db
+        .collection("ads")
+        .where("searchTitleIndex", "array-contains", splitTitle.toLowerCase())
+        .orderBy("updateAt", "desc")
+        .get();
+
+      if (adsSnapshot.empty) {
+        continue;
+      }
+
+      adsSnapshotList.push(adsSnapshot);
+    }
+
+    if (adsSnapshotList.length === 0) {
       return res
         .status(404)
         .send({ message: "Nenhum anúncio encontrado para este usuário", statusCode: "not-found" });
@@ -34,15 +45,19 @@ exports.listAdsByTitle = async (req, res) => {
 
     const adsList = [];
 
-    adsSnapshot.forEach((doc) => {
-      const data = doc.data();
-      if (data.user_id.id !== userId) {
-        delete data.user_id;
-        const createdDate = data.createAt.toDate().toISOString();
-        const updatedDate = data.updateAt.toDate().toISOString();
-        adsList.push({ ...data, id: doc.id, createAt: createdDate, updateAt: updatedDate });
-      }
-    });
+    for (let i = 0; i < adsSnapshotList.length; i++) {
+      const adsSnapshot = adsSnapshotList[i];
+
+      adsSnapshot.forEach((doc) => {
+        const data = doc.data();
+        if (data.user_id.id !== userId) {
+          delete data.user_id;
+          const createdDate = data.createAt.toDate().toISOString();
+          const updatedDate = data.updateAt.toDate().toISOString();
+          adsList.push({ ...data, id: doc.id, createAt: createdDate, updateAt: updatedDate });
+        }
+      });
+    }
 
     res
       .status(200)
