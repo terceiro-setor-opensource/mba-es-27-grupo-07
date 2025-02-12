@@ -59,35 +59,39 @@
   padding-top: 100%; /* Mantém a proporção 1:1 para criar um quadrado */
 }
 
-.back-button {
-    background: none;
-    border: 1px solid;
-    border-radius: 520%;
-    padding: 5px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 35px;
-    height: 35px;
-    cursor: pointer;
-    background-color: white;
-    z-index: 10;
-}
-
-.fixed {
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    z-index: 1000;
-}
-
 .anuncio-image {
-    width: 100%;
-    height: auto;
-    display: block;
-    margin: 0;
-    padding: 0;
-    border-radius: 1%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Garante que a imagem preencha a área */
+  margin: 0;
+  padding: 0;
+  border-radius: 1%;
+  display: none;
+}
+
+.anuncio-image.loaded {
+  display: block;
+}
+
+.back-button {
+  background: none;
+  border: 1px solid;
+  border-radius: 520%;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 35px;
+  height: 35px;
+  cursor: pointer;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background-color: white;
+  z-index: 10;
 }
 
 .anuncio-card {
