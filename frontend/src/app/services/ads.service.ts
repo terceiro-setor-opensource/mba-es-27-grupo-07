@@ -96,6 +96,21 @@ export class AdsService {
     return lastValueFrom(result$);
   }
 
+  async listAdsByTitle(title: string) {
+    const credentials = await this.authService.getCredentials();
+
+    const result$ = this.http.get<IAdsListResponse>(
+      `${this.functions.listAdsByTitle}?title=${title}`,
+      {
+        headers: {
+          Authorization: `Bearer ${credentials?.token || ''}`,
+        },
+      }
+    );
+
+    return lastValueFrom(result$);
+  }
+
   async getAds(adsId: string) {
     const credentials = await this.authService.getCredentials();
 

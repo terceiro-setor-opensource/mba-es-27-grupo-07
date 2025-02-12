@@ -68,7 +68,8 @@
   object-fit: cover; /* Garante que a imagem preencha a área */
   margin: 0;
   padding: 0;
-  border-radius: 1%;
+  border-bottom-right-radius: 0.625rem;
+  border-bottom-left-radius: 0.625rem;
   display: none;
 }
 

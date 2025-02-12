@@ -4,30 +4,45 @@
     <img src="/assets/img/logo_menor.png" alt="Logo_menor" class="logo" />
   </div>
 
-  <section class="cc-search-input">
-    <form>
-      <mat-form-field appearance="outline" class="custom-input">
-        <mat-label>busque...</mat-label>
-        <input matInput type="text" id="nome" />
-        <span class="material-symbols-outlined search-icon"> search </span>
-      </mat-form-field>
-    </form>
-  </section>
+  <form class="cc-search-input" [formGroup]="serachForm">
+    <mat-form-field appearance="outline" class="custom-input">
+      <mat-label>busque...</mat-label>
+      <input
+        matInput
+        type="text"
+        id="search"
+        formControlName="search"
+        (keydown.enter)="onSearch()"
+      />
+    </mat-form-field>
+    <button type="button" class="cc-search-icon-button" (click)="onSearch()">
+      <span class="material-symbols-outlined cc-search-icon"> search </span>
+    </button>
+  </form>
 
   <div *ngIf="isLoading" class="cc-home-loader">
     <p>carregando anúncios...</p>
     <mat-spinner *ngIf="isLoading" class="cc-spinner"></mat-spinner>
   </div>
 
-  <ng-container *ngIf="!isLoading">
+  <section class="cc-no-result" *ngIf="!isLoading && !adsList?.length">
+    <img
+      src="/assets/img/search-no-result.png"
+      alt="Imagem de busca sem resultado"
+    />
+    <h3 class="cc-no-result-text">nenhum anúncio encontrado</h3>
+  </section>
+
+  <ng-container *ngIf="!isLoading && adsList?.length">
     <ng-container *ngFor="let ads of adsList">
       <div class="product">
-        <div class="product-image-container">
+        <div class="product-image-container opacity">
           <img
             src="{{ ads.fileUrl }}"
             alt="{{ ads.title }}"
             class="product-image"
             routerLink="/anuncios/{{ ads.id }}"
+            (load)="onImageLoad($event)"
           />
         </div>
         <div class="product-info">
