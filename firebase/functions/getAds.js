@@ -35,6 +35,7 @@ exports.getAds = async (req, res) => {
     const userData = userDoc.data();
 
     delete adData.user_id;
+    if (adData.searchTitleIndex) delete adData.searchTitleIndex;
 
     const createdDate = adData.createAt.toDate().toISOString();
     const updatedDate = adData.updateAt.toDate().toISOString();

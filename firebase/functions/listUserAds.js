@@ -33,6 +33,7 @@ exports.listUserAds = async (req, res) => {
     adsSnapshot.forEach((doc) => {
       const data = doc.data();
       delete data.user_id;
+      if (data.searchTitleIndex) delete data.searchTitleIndex;
       const createdDate = data.createAt.toDate().toISOString();
       const updatedDate = data.updateAt.toDate().toISOString();
       adsList.push({ ...data, id: doc.id, createAt: createdDate, updateAt: updatedDate });
