@@ -1,6 +1,7 @@
 const { getFirestore, FieldValue } = require("./utils/firebase");
 const logger = require("firebase-functions/logger");
 const { getFileSignedUrl } = require("./services/file-service");
+const irrelevantWords = require("./constants/irrelevant-words");
 
 const db = getFirestore();
 
@@ -23,6 +24,17 @@ exports.createAds = async (req, res) => {
     const userId = req.userId;
     const url = await getFileSignedUrl(data.filePath);
 
+    const searchTitleIndex = [];
+    const splitTitle = data.title
+      .split(" ")
+      .filter((word) => !irrelevantWords.includes(word.toLowerCase()));
+
+    for (let i = 0; i < splitTitle.length; i++) {
+      for (let y = 1; y < splitTitle[i].length + 1; y++) {
+        searchTitleIndex.push(splitTitle[i].substring(0, y).toLowerCase());
+      }
+    }
+
     const adRef = await db.collection("ads").add({
       title: data.title,
       description: data.description,
@@ -30,6 +42,7 @@ exports.createAds = async (req, res) => {
       status: data.status,
       filePath: data.filePath,
       fileUrl: url,
+      searchTitleIndex,
       user_id: db.collection("users").doc(userId),
       createAt: FieldValue.serverTimestamp(),
       updateAt: FieldValue.serverTimestamp(),

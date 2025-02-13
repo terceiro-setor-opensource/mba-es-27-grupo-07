@@ -30,7 +30,7 @@ export class MenuComponent {
 
     if (currentUrl === '/home') {
       this.activeMenu = 'home';
-    } else if (currentUrl.startsWith('/anuncios') || currentUrl.startsWith('/meus-anuncios')) {
+    } else if (currentUrl.startsWith('/meus-anuncios')) {
       this.activeMenu = 'anuncios';
     } else if (currentUrl === '/meu-perfil' || currentUrl === '/editar-meu-perfil') {
       this.activeMenu = 'perfil';
