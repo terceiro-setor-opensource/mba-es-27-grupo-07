@@ -28,6 +28,7 @@ export class MyAdsDetailsPageComponent implements OnInit {
   ads: IAds | null = null;
   isLoading: boolean = false;
   initialLoader: boolean = true;
+  mostrarModal: boolean = false;
 
   constructor(
     private snackBarService: SnackBarService,
@@ -44,13 +45,11 @@ export class MyAdsDetailsPageComponent implements OnInit {
       const adsId = this.router.snapshot.paramMap.get('param');
       this.isNewAds = adsId === 'novo';
 
-      // Configura validação da imagem
       const imageUrlControl = this.adsForm.get('imageUrl');
       if (this.isNewAds) {
         imageUrlControl?.setValidators([Validators.required]);
       } else {
         imageUrlControl?.clearValidators();
-        // Carrega detalhes do anúncio apenas se não for novo
         await this.loadAdsDetails(adsId as string);
       }
       imageUrlControl?.updateValueAndValidity();
@@ -169,4 +168,51 @@ export class MyAdsDetailsPageComponent implements OnInit {
       this.isLoading = false;
     }
   }
+
+  async onDelete() {
+    try {
+      this.isLoading = true;
+
+      if (this.ads?.filePath) {
+        await this.fileAdsService.deleteFile(this.ads.filePath);
+      }
+
+      const response = await this.adsService.deleteAds(this.ads?.id as string);
+
+      if (response?.statusCode === 'success') {
+        this.snackBarService.showNotificationMassage(
+          'Anúncio excluído com sucesso!',
+          'snackbarSuccess'
+        );
+
+        setTimeout(() => {
+          this.routerLink.navigate(['/meus-anuncios']);
+        }, 1000);
+      } else {
+        throw new Error('Erro ao excluir anúncio');
+      }
+    } catch (error) {
+      console.error('Error deleting ads: ', error);
+      this.snackBarService.showNotificationMassage(
+        'Erro ao excluir anúncio. Tente novamente.',
+        'snackbarError'
+      );
+    } finally {
+      this.isLoading = false;
+    }
+  }
+
+  mostrarModalExclusao(): void {
+    this.mostrarModal = true;
+  }
+
+  confirmarExclusao(): void {
+    this.mostrarModal = false;
+    this.onDelete();
+  }
+
+  cancelarExclusao(): void {
+    this.mostrarModal = false;
+  }
+
 }

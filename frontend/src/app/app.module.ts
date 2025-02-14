@@ -38,6 +38,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { EditMyProfilePageComponent } from './pages/edit-my-profile-page/edit-my-profile-page.component';
 import { MyAdsDetailsPageComponent } from './pages/my-ads-details-page/my-ads-details-page.component';
 import { ForgotPasswordPageComponent } from './pages/forgot-password-page/forgot-password-page.component';
+import { ModalConfirmComponent } from './components/modal-confirm/modal-confirm.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import { ForgotPasswordPageComponent } from './pages/forgot-password-page/forgot
     EditMyProfilePageComponent,
     MyAdsDetailsPageComponent,
     ForgotPasswordPageComponent,
+    ModalConfirmComponent,
   ],
   imports: [
     BrowserModule,
