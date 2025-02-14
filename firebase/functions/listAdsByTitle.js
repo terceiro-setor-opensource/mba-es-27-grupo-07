@@ -55,6 +55,7 @@ exports.listAdsByTitle = async (req, res) => {
         const data = doc.data();
         if (data.user_id.id !== userId) {
           delete data.user_id;
+          if (data.searchTitleIndex) delete data.searchTitleIndex;
           const createdDate = data.createAt.toDate().toISOString();
           const updatedDate = data.updateAt.toDate().toISOString();
           const ad = { ...data, id: doc.id, createAt: createdDate, updateAt: updatedDate };
