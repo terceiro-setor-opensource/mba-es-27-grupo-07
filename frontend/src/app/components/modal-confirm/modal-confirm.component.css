@@ -34,14 +34,28 @@
 .modal-header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   padding: 1rem;
+  background-color: #dc3545;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
 }
 
 .modal-title {
   margin: 0;
   font-size: 1.25rem;
   font-weight: 500;
+  color: white;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  gap: 8px;  /* Espaçamento entre o ícone e o texto */
+}
+
+.icon-error {
+  font-size: 24px;  /* Ajuste o tamanho do ícone conforme necessário */
+  display: flex;
+  align-items: center;
 }
 
 .btn-close {
@@ -50,6 +64,7 @@
   border: none;
   cursor: pointer;
   font-size: 1.5rem;
+  color: white;
 }
 
 .modal-body {
