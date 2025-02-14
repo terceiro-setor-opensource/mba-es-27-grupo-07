@@ -125,4 +125,20 @@ export class AdsService {
 
     return lastValueFrom(result$);
   }
+
+  async deleteAds(adsId: string) {
+    const credentials = await this.authService.getCredentials();
+
+    const result$ = this.http.delete<IAdsResponse>(
+      `${this.functions.deleteAds}/${adsId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${credentials?.token || ''}`,
+        },
+      }
+    );
+
+    return lastValueFrom(result$);
+  }
+
 }
