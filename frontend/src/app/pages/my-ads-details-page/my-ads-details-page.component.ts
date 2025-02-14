@@ -28,6 +28,7 @@ export class MyAdsDetailsPageComponent implements OnInit {
   ads: IAds | null = null;
   isLoading: boolean = false;
   initialLoader: boolean = true;
+  mostrarModal: boolean = false;
 
   constructor(
     private snackBarService: SnackBarService,
@@ -171,6 +172,11 @@ export class MyAdsDetailsPageComponent implements OnInit {
   async onDelete() {
     try {
       this.isLoading = true;
+
+      if (this.ads?.filePath) {
+        await this.fileAdsService.deleteFile(this.ads.filePath);
+      }
+
       const response = await this.adsService.deleteAds(this.ads?.id as string);
 
       if (response?.statusCode === 'success') {
@@ -195,4 +201,18 @@ export class MyAdsDetailsPageComponent implements OnInit {
       this.isLoading = false;
     }
   }
+
+  mostrarModalExclusao(): void {
+    this.mostrarModal = true;
+  }
+
+  confirmarExclusao(): void {
+    this.mostrarModal = false;
+    this.onDelete();
+  }
+
+  cancelarExclusao(): void {
+    this.mostrarModal = false;
+  }
+
 }

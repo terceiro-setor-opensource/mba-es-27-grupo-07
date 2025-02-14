@@ -63,10 +63,16 @@
       {{ isNewAds ? "criar anúncio" : "salvar alterações" }}
     </button>
 
-    <button *ngIf="!isNewAds" class="cc-basic-red-button excluir-anuncio-button" (click)="onDelete()" mat-button>
+    <button *ngIf="!isNewAds" class="cc-basic-red-button excluir-anuncio-button" (click)="mostrarModalExclusao()"
+      mat-button>
       excluir anúncio<span class="material-symbols-outlined">delete</span>
     </button>
   </ng-container>
+
+  <app-modal-confirm [mostrar]="mostrarModal" [titulo]="'Confirmar exclusão'"
+    [mensagem]="'Tem certeza que deseja excluir este anúncio?'" [textoBotaoConfirmar]="'Excluir'"
+    [textoBotaoCancelar]="'Cancelar'" (confirmar)="confirmarExclusao()" (cancelar)="cancelarExclusao()">
+  </app-modal-confirm>
 
   <app-menu></app-menu>
 </main>
