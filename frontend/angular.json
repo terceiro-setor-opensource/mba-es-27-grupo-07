@@ -33,6 +33,7 @@
             "assets": [
               "src/favicon.png",
               "src/assets",
+              "src/manifest.json",
               {
                 "glob": "**/*",
                 "input": "./node_modules/leaflet/dist/images/",
