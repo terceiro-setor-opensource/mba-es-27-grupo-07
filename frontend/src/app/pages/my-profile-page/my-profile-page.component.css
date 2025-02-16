@@ -1,35 +1,63 @@
 .cc-main-container {
-    margin-bottom: 50px;
-    text-align: center;
-    padding: 1.25rem;
-    padding-bottom: 60px;
-  }
+  margin-bottom: 50px;
+  text-align: center;
+  padding: 1.25rem;
+  padding-bottom: 60px;
+}
+
+.cc-my-profile-page-icon-content {
+  width: 50%;
+  box-sizing: border-box;
+  display: flex;
+  margin: 0 auto 1.875rem auto;
+  border-radius: 100%;
+  padding: 0.625rem;
+  border: 0.1875rem solid var(--ccOceanBlue);
+  overflow: hidden;
+}
+
+.cc-my-profile-page-icon {
+  width: 100%;
+  margin-left: 0.625rem;
+  box-sizing: border-box;
+}
+
+.cc-my-profile-page-text {
+  font-size: 1.5rem;
+  line-height: 1.875rem;
+  text-align: center;
+  color: var(--ccDarkBlue);
+  text-align: center;
+}
+
+.cc-primary-button {
+  margin-top: 1.875rem;
+}
 
 .custom-input {
-    margin-bottom: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .outline mat-label {
-    display: block;
-    margin-bottom: 0.5rem;
-    font-weight: bold;
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
 }
 
 .bloco-apartamento {
-    display: flex;
-    gap: 10px;
+  display: flex;
+  gap: 10px;
 }
 
 .custom-input {
-    flex: 1;
+  flex: 1;
 }
 
 .editar-perfil-button {
-    margin-top: 3.0rem;
-
+  margin-top: 3rem;
 }
 
 .sair {
-   text-decoration: underline; 
-   margin: 1rem 0 1rem 0;
+  text-decoration: underline;
+  margin: 1rem 0 1rem 0;
 }

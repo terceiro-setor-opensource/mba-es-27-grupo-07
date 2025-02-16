@@ -1,7 +1,18 @@
 <main class="cc-main-container">
   <app-header title="meu perfil" [link]="'/home'"></app-header>
+  <div class="cc-my-profile-page-icon-content">
+    <img
+      class="cc-my-profile-page-icon"
+      src="/assets/icons/edit-profile-blue.png"
+      alt="Icone de profile"
+    />
+  </div>
+  <h2 class="cc-my-profile-page-text">
+    Em breve você poderá visualizar e editar as informações do seu perfil. Logo
+    teremos novidades!
+  </h2>
 
-  <section class="cc-login-section-input">
+  <!-- <section class="cc-login-section-input">
     <form>
       <mat-form-field appearance="outline" class="custom-input">
         <mat-label>nome</mat-label>
@@ -38,9 +49,12 @@
     routerLink="/editar-meu-perfil"
   >
     editar perfil
-  </button>
+  </button> -->
 
-  <button class="cc-basic-button sair" mat-button (click)="handleLogout()">
+  <!-- <button class="cc-basic-button sair" mat-button (click)="handleLogout()">
+    sair
+  </button> -->
+  <button class="cc-primary-button" mat-flat-button (click)="handleLogout()">
     sair
   </button>
   <app-menu></app-menu>
