@@ -1,6 +1,6 @@
 const { getFirestore, FieldValue } = require("./utils/firebase");
 const logger = require("firebase-functions/logger");
-const { getFileSignedUrl } = require("./services/file-service");
+const { getFilePublicUrl } = require("./services/file-service");
 const irrelevantWords = require("./constants/irrelevant-words");
 
 const db = getFirestore();
@@ -22,7 +22,7 @@ exports.createAds = async (req, res) => {
     }
 
     const userId = req.userId;
-    const url = await getFileSignedUrl(data.filePath);
+    const url = getFilePublicUrl(data.filePath);
 
     const searchTitleIndex = [];
     const splitTitle = data.title
