@@ -1,6 +1,6 @@
 const cors = require("cors");
 
-const ALLOWED_ORIGINS = ["http://localhost:4200", "https://mba-es27-condominio-conectado.web.app"];
+const ALLOWED_ORIGINS = ["http://localhost:4200", "https://app-url"];
 
 const corsOptions = {
   origin: (origin, callback) => {
